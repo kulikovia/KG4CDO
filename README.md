@@ -164,13 +164,13 @@ In order to analyze the execution time of SPARQL queries to the CSDO models in t
 
 4.2. **Load_comp_KG(hierarhy_3_3-3)_generate_script.py**, 
 
-4.3. **Load_comp_KG(hierarhy_4\_2-2)_generate_script.py}**, 
+4.3. **Load_comp_KG(hierarhy_4\_2-2)_generate_script.py**, 
 
 4.4. **Load_comp_KG(hierarhy_5_2-2)_generate_script.py**,
 
-4.5. **Load_comp_KG(linear)_generate_script.py}**. 
+4.5. **Load_comp_KG(linear)_generate_script.py**. 
 
-The Python interpreter version 3 or higher is required to run the scripts. Model parameters are set via the following script variables: max_level_2, max_level_3, max_level_4, max_level_5, max_objects1 and max_objects2. The resulting models in RDF/XML format are loaded into the RDF data repository using standard data storage methods. The authors used Blazegraph \citep{Ref_36}. Queries were executed from the standard Web application Blazegraph which provides a screen display of the execution time of each SPARQL query.
+The Python interpreter version 3 or higher is required to run the scripts. Model parameters are set via the following script variables: max_level_2, max_level_3, max_level_4, max_level_5, max_objects1 and max_objects2. The resulting models in RDF/XML format are loaded into the RDF data repository using standard data storage methods. We used Blazegraph. Queries were executed from the standard Web application Blazegraph which provides a screen display of the execution time of each SPARQL query.
 
 ## Experiments
 
