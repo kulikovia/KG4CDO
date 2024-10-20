@@ -49,12 +49,14 @@ If you find this repository useful, please cite our paper and corresponding fram
 
 ## Framework structure
 The component diagram of the developed framework is shown beow:
-![](/images/datasets.png)
+![](/images/2.png)
 
 The framework consists of the following components:
 1. A package of multilevel knowledge graph synthesis programs, which includes: 
 1.1. Inductive synthesis program of multilevel KG}} – Ind_synthesis.py.
+
 **Input data:** Private graph models of SCDO provided by information systems in CSV format (Test_model.csv, columns: MODEL_TYPE (type of private graph model, e.g. access rights system model, network topology model, billing model, etc.), NODE\_TYPE (element type of the private graph model, e.g. network devices and links for the network topology model or user accounts and tariffs for the billing model, etc.), ID (identifier of the element within the private graph model), NAME (name of the element of the private graph model), PARENT_ID (identifier of the parent element of the private graph model), LEVEL_NUM (level number within the private graph model)); rules for linking private graph models in CSV format (Links_rules.csv, columns: SRC_MODEL (name of the type of the first linked model), SRC_ID (element identifier of the first linked model), SRC_NAME (element name of the first linked model), DIST_MODEL (name of the type of the second linked model), DIST_ID (element identifier of the second linked model), DIST_NAME (element name of the second linked model), RULE (name of the linking rule)).
+
 **Output:** The model of the CSDO in the form of a knowledge graph in RDF/XML format and files Model_base.npz, Model_base_links.npz containing the inductive model and Model_base_req.npz, Model_base_links_req.npz containing the inductive model, that takes into account the requirements of users in the format of Numpy data arrays, the runtime of inductive synthesis.
 1.2. Deductive synthesis program of multilevel KG for the base algorithm}} – Deductive_synthesis_(SQL).py.
 **Input data:** Telecommunication network model in the form of knowledge graph in RDF/XML format and Numpy array; set of facts to be processed in CSV format (Facts.csv, columns: MODEL_TYPE (private graph model type), NODE_TYPE (private graph model element type), FACT_ID (identifier of the fact within the private graph model), NAME (fact name), PARENT_ID (identifier of the parent element of the private graph model), LEVEL_NUM (level number within the private graph model)).
