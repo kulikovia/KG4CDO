@@ -65,13 +65,13 @@ The framework consists of the following components:
 1.3. A model data generator that contains the following procedures:
 1.3.1. Private model generator of SCDS component models for building a multilevel model – Model_creation_hierarchy.py. The generator has the following restrictions: the number of linked models is 2, the number of levels of linked models is 3, 4, 5. The structure of generated models is presented in Table below:
 
-| Model #1            | Model #2            |
-|----------|----------|----------|----------|
-| Level 1  | 1        | Level 1  | 1        |
-| Level 2  | L2       | Level 2  | L2       |
-| Level 3  | L3       | Level 3  | L3       |
-| Level 4  | L4       | Level 4  | L4       |
-| Level 5  | L5       | Level 5  | L5       |
+| Model #1          |          | Model #2          |          |
+|-------------------|----------|-------------------|----------|
+| Level 1           | 1        | Level 1           | 1        |
+| Level 2           | L2       | Level 2           | L2       |
+| Level 3           | L3       | Level 3           | L3       |
+| Level 4           | L4       | Level 4           | L4       |
+| Level 5           | L5       | Level 5           | L5       |
 | Level 6: objects  | M1       | Level 6: objects  | M2       |
 
 **Input data:** Number of lower level elements of linked model #1 (M1), number of lower level elements of linked model #2 (M2), number of elements at level 2 of linked models (L2), number of elements at level 3 of linked models (L3), number of elements at level 4 of linked models (L4), number of elements at level 5 of linked models (L5).
