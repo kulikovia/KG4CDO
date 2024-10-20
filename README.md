@@ -13,7 +13,7 @@ Correspondence to:
 
 [**Synthesis of multilevel knowledge graphs: Methods and technologies for dynamic networks**](https://www.sciencedirect.com/science/article/pii/S0952197623004281)<br>
 Tianxing Man, Alexander Vodyaho, Dmitry I. Ignatov, Igor Kulikov, Nataly Zhukova<br>
-Engineering Applications of Artificial Intelligence 2023 Connected research.
+Engineering Applications of Artificial Intelligence, 2023. Connected research.
 
 If you find this repository useful, please cite our paper and corresponding framework:
 ```
