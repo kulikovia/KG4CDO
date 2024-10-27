@@ -7,8 +7,8 @@ from datetime import timedelta
 #Knowledge Graph Structure
 Max_Level_2 = 833333
 Max_Level_3 = 833333
-Max_Objects = 833333    #Model 1 lowest level
-Max_Options = 833333    #Model 2 lowest level
+Max_Objects_1 = 833333    #Model 1 lowest level
+Max_Objects_2 = 833333    #Model 2 lowest level
 
 #Constants
 Max_Step_1 = 100000 #Maximum number of model elements in each rdf file
@@ -143,7 +143,7 @@ def createXML(filename):
     FileNum = 0
     i = 1
     k = 1
-    while i <= Max_Objects:
+    while i <= Max_Objects_1:
         FileNum = FileNum + 1
         f = open(Model_path + filename + "_object_" + str(FileNum) + "_.nq", "at")
         f.write(header)
@@ -153,7 +153,7 @@ def createXML(filename):
             f.write(body)
             i = i + 1
             k = k + 1
-            if i > Max_Objects:
+            if i > Max_Objects_1:
                 break
         f.write("\n</rdf:RDF>\n")
         f.close()
@@ -164,7 +164,7 @@ def createXML(filename):
     FileNum = 0
     i = 1
     k = 1
-    while i <= Max_Options:
+    while i <= Max_Objects_2:
         FileNum = FileNum + 1
         f = open(Model_path + filename + "_option_" + str(FileNum) + "_.nq", "at")
         f.write(header)
@@ -175,7 +175,7 @@ def createXML(filename):
             f.write(body)
             i = i + 1
             k = k + 1
-            if i > Max_Options:
+            if i > Max_Objects_2:
                 break
         f.write("\n</rdf:RDF>\n")
         f.close()

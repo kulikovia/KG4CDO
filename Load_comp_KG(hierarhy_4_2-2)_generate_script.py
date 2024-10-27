@@ -7,8 +7,8 @@ from datetime import timedelta
 Max_Level_2 = 244515
 Max_Level_3 = 660191
 Max_Level_4 = 1782514
-Max_Objects = 4812789   #Model 1 lowest level
-Max_Options = 4812789   #Model 2 lowest level
+Max_Objects_1 = 4812789   #Model 1 lowest level
+Max_Objects_2 = 4812789   #Model 2 lowest level
 Max_Step_1 = 100000 #Maximum number of model elements in each rdf file
 Max_Step_2 = 50000  #Maximum number of model elements in each rdf file
 
@@ -196,7 +196,7 @@ def createXML(filename):
     FileNum = 0
     i = 1
     k = 1
-    while i <= Max_Objects:
+    while i <= Max_Objects_1:
         FileNum = FileNum + 1
         f = open(Model_path + filename + "_object_" + str(FileNum) + "_.nq", "at")
         f.write(header)
@@ -206,7 +206,7 @@ def createXML(filename):
             f.write(body)
             i = i + 1
             k = k + 1
-            if i > Max_Objects:
+            if i > Max_Objects_1:
                 break
         f.write("\n</rdf:RDF>\n")
         f.close()
@@ -217,7 +217,7 @@ def createXML(filename):
     FileNum = 0
     i = 1
     k = 1
-    while i <= Max_Options:
+    while i <= Max_Objects_2:
         FileNum = FileNum + 1
         f = open(Model_path + filename + "_option_" + str(FileNum) + "_.nq", "at")
         f.write(header)
@@ -227,7 +227,7 @@ def createXML(filename):
                 "/'>\n<my:has_id>Option_") + str(i) + str("</my:has_id>\n<my:has_parent_id><rdf:Description rdf:about='http://127.0.0.1/Core_2_Level_4_") + str(random.randint(1, Max_Level_4)) + str("/' /></my:has_parent_id>\n</rdf:Description>\n")
             f.write(body)
             i = i + 1
-            if i > Max_Options: break
+            if i > Max_Objects_2: break
             k = k + 1
         f.write("\n</rdf:RDF>\n")
         f.close()

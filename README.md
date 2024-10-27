@@ -36,15 +36,17 @@ If you find this repository useful, please cite our paper and corresponding fram
 2. Deductive_synthesis_(SQL).py - Deductive synthesis program of multilevel KG for the base algorithm
 3. Deductive_synthesis_modified(SQL).py - Deductive synthesis program of multilevel KG for the modified algorithm
 4. Ind_synthesis_4_(SQL).py - Inductive synthesis program of multilevel KG 
-5. Load_comp_KG(hierarhy_3_2-2)_generate_script.py - Script that generates a three-level knowledge graph consisting of two private graph models linked at the second level
-6. Load_comp_KG(hierarhy_3_3-3)_generate_script.py - Script that generates a three-level knowledge graph consisting of two private graph models linked at the third level
-7. Load_comp_KG(hierarhy_4_2-2)_generate_script.py - Script that generates a four-level knowledge graph consisting of two private graph models linked at the second level
-8. Load_comp_KG(hierarhy_5_2-2)_generate_script.py - Script that generates a five-level knowledge graph consisting of two private graph models linked at the second level
-9. Load_comp_KG(linear)_generate_script.py - Script that generates model in the format of one-level knowledge graph
-10. Model_creation_hierarchy.py - Script that generates hierarchy private graph models
-11. Model_creation_one-level.py - Script that generates one-level private graph models
-12. Test_template_1-one-level.csv - Template for the Model_creation_one-level.py script
-13. Test_template_1.csv - Template for the Model_creation_hierarchy.py script
+5. Links_rules-one-level-TEST.csv - Ruls for linking private models elements for one-level model
+6. Links_rules.csv - Ruls for linking private models elements for hierarchical model
+7. Load_comp_KG(hierarhy_3_2-2)_generate_script.py - Script that generates a three-level knowledge graph consisting of two private graph models linked at the second level
+8. Load_comp_KG(hierarhy_3_3-3)_generate_script.py - Script that generates a three-level knowledge graph consisting of two private graph models linked at the third level
+9. Load_comp_KG(hierarhy_4_2-2)_generate_script.py - Script that generates a four-level knowledge graph consisting of two private graph models linked at the second level
+10. Load_comp_KG(hierarhy_5_2-2)_generate_script.py - Script that generates a five-level knowledge graph consisting of two private graph models linked at the second level
+11. Load_comp_KG(linear)_generate_script.py - Script that generates model in the format of one-level knowledge graph
+12. Model_creation_hierarchy.py - Script that generates hierarchy private graph models
+13. Model_creation_one-level.py - Script that generates one-level private graph models
+14. Test_template_1-one-level.csv - Template for the Model_creation_one-level.py script
+15. Test_template_1.csv - Template for the Model_creation_hierarchy.py script
 
 
 ## Framework structure
