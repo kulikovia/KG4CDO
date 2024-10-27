@@ -27,8 +27,15 @@ con = psycopg2.connect(
    user="postgres",
    password="admin",
    host="127.0.0.1",
-   port="5433"
+   port="5432"
     )
+
+#Set up working directory
+work_dir = "C:\\1\\"
+
+#Set up model type
+model_type = 1 #1 - hierarchical model; 0 - one-level model
+
 #Clear DB tables
 print("Connected to DB")
 cur = con.cursor()
@@ -79,8 +86,6 @@ class req_model:
         model = []
         with open(file_name) as f_obj:
             self.model1 = csv_dict_reader_requirements(f_obj)
-
-
 
 
 class base_node:
@@ -136,7 +141,7 @@ class base_model:
 
     def add_model(self, src_model):
         # Open SPARQL file
-        csv_f = open('C:\Blazegraph\Projects\Base.csv', "wt")
+        csv_f = open(work_dir + 'Base.csv', "wt")
         j = len(self.model)
         for i in range(len(src_model.model1)):
             self.model.append(base_node())
@@ -156,7 +161,7 @@ class base_model:
             csv_f.write(line)
             j = j + 1
         csv_f.close()
-        sql = '''COPY "Base_model" ("ID", "MODEL_TYPE", "NODE_TYPE", "NAME", "SRC_ID", "PARENT_ID", "LEVEL_NUM") FROM 'C:\Blazegraph\Projects\Base.csv' WITH DELIMITER ',' ;'''
+        sql = '''COPY "Base_model" ("ID", "MODEL_TYPE", "NODE_TYPE", "NAME", "SRC_ID", "PARENT_ID", "LEVEL_NUM") FROM \'''' + work_dir + 'Base.csv' + '''\' WITH DELIMITER ',' ;'''
         cur.execute(sql)
         con.commit()
 
@@ -206,12 +211,12 @@ class base_model:
 
     def use_requirements(self, req_obj):
         # Rejecting nodes from the base model
-        sql = '''Copy (SELECT s."ID", s."MODEL_TYPE", s."NODE_TYPE", s."SRC_ID", s."NAME", s."PARENT_ID", s."LEVEL_NUM" FROM public."Base_model" as s JOIN public."Req" as d ON s."MODEL_TYPE" = d."MODEL_TYPE" AND s."NODE_TYPE" = d."NODE_TYPE" AND s."SRC_ID" = d."SRC_ID" AND s."PARENT_ID" = d."PARENT_ID" AND s."NAME" = d."NAME") To 'C:\Blazegraph\Projects\Req_model_1.csv' With CSV DELIMITER ',' HEADER;'''
+        sql = '''Copy (SELECT s."ID", s."MODEL_TYPE", s."NODE_TYPE", s."SRC_ID", s."NAME", s."PARENT_ID", s."LEVEL_NUM" FROM public."Base_model" as s JOIN public."Req" as d ON s."MODEL_TYPE" = d."MODEL_TYPE" AND s."NODE_TYPE" = d."NODE_TYPE" AND s."SRC_ID" = d."SRC_ID" AND s."PARENT_ID" = d."PARENT_ID" AND s."NAME" = d."NAME") To \'''' + work_dir + 'Req_model_1.csv' + '''\' With CSV DELIMITER ',' HEADER;'''
         cur.execute(sql)
         con.commit()
         print('Req object: The JOIN #1 executed')
         l = 0
-        with open('C:\Blazegraph\Projects\Req_model_1.csv') as f_obj:
+        with open(work_dir + 'Req_model_1.csv') as f_obj:
             reader = csv.DictReader(f_obj, delimiter=',')
             for line in reader:
                 self.model_req.append(base_node())
@@ -314,8 +319,8 @@ def csv_dict_reader_requirements(file_obj_rules):
     reader = csv.DictReader(file_obj_rules, delimiter=',')
     print("Req dic entered")
     i=0
-    # Open SPARQL file
-    csv_f = open('C:\Blazegraph\Projects\Req.csv', "wt")
+    # Open CSV file
+    csv_f = open(work_dir + 'Req.csv', "wt")
     for line in reader:
         requirements.append(base_requirements())
         requirements[i].model_type = line["MODEL_TYPE"]
@@ -330,14 +335,14 @@ def csv_dict_reader_requirements(file_obj_rules):
         csv_f.write(line)
         i = i + 1
     csv_f.close()
-    sql = '''COPY "Req" ("ID", "MODEL_TYPE", "NODE_TYPE", "NAME", "SRC_ID", "PARENT_ID", "LEVEL_NUM") FROM 'C:\Blazegraph\Projects\Req.csv' WITH DELIMITER ',' ;'''
+    sql = '''COPY "Req" ("ID", "MODEL_TYPE", "NODE_TYPE", "NAME", "SRC_ID", "PARENT_ID", "LEVEL_NUM") FROM \'''' + work_dir + 'Req.csv' + '''\' WITH DELIMITER ',' ;'''
     cur.execute(sql)
     con.commit()
     return requirements
 
 def create_rdf_model(model, links, file_name):
     genres = ['Sport', 'Comedy', 'Documentary', 'Geography']
-    # Open SPARQL file
+    # Open file
     spql = open(file_name, "wt")
     # Add header
     header = str(
@@ -358,8 +363,6 @@ def create_rdf_model(model, links, file_name):
         body = str("\n<rdf:Description rdf:about='http://127.0.0.1/Link_") + str(i) + str("/'>\n<my:src_node_id>") + str(links[i].src_link) + str("</my:src_node_id>\n<my:dist_node_id>") + str(links[i].dist_link) + str("</my:dist_node_id>\n<my:used_rule>") + str(links[i].rule)+ str("</my:used_rule>\n</rdf:Description>\n")
         spql.write(body)
 
-    #Create footer
-    #spql.write("\n</rdf:RDF>\n")
     spql.close()
     return 1
 
@@ -419,10 +422,12 @@ if __name__ == "__main__":
     t0 = t1
     t1 = int(time.time() * 1000)
     print("Indexes normalized. Time: " + str(t1-t0) + " ms.")
-    # Base links creation - hierarchical
-    #base_obj.create_base_links('Links_rules.csv')
-    # Base links creation - one-level
-    base_obj.create_base_links('Links_rules-one-level-TEST.csv')
+    if model_type == 1:
+        # Base links creation - hierarchical
+        base_obj.create_base_links('Links_rules.csv')
+    else:
+        # Base links creation - one-level
+        base_obj.create_base_links('Links_rules-one-level-TEST.csv')
     t0 = t1
     t1 = int(time.time() * 1000)
     print("Base links created. Time: " + str(t1-t0) + " ms.")
@@ -437,24 +442,26 @@ if __name__ == "__main__":
     t0 = t1
     t1 = int(time.time() * 1000)
     print("Reqs applyed. Time: " + str(t1-t0) + " ms.")
-    # Create links for model_req - hierarchical
-    base_obj.create_req_base_links('Links_rules.csv')
-    # Create links for model_req - one-level
-    #base_obj.create_req_base_links('Links_rules-one-level-TEST.csv')
+    if model_type == 1:
+        # Create links for model_req - hierarchical
+        base_obj.create_req_base_links('Links_rules.csv')
+    else:
+        # Create links for model_req - one-level
+        base_obj.create_req_base_links('Links_rules-one-level-TEST.csv')
     t0 = t1
     t1 = int(time.time() * 1000)
     print("Req model links created. Time: " + str(t1-t0) + " ms.")
     #Create base RDF model
-    create_rdf_model(base_obj.model, base_obj.links, 'Base_rdf_1.xml')
+    create_rdf_model(base_obj.model, base_obj.links, work_dir + 'Base_rdf_1.xml')
     #Create user req. RDF model
-    create_rdf_model(base_obj.model_req, base_obj.links_req, 'Req_rdf_1.xml')
+    create_rdf_model(base_obj.model_req, base_obj.links_req, work_dir + 'Req_rdf_1.xml')
     # Create dynamic data
-    create_dynamic_data('Req_rdf_1.xml', 100)
+    create_dynamic_data(work_dir + 'Req_rdf_1.xml', 100)
     # Saving models to files
-    np.savez('Model_base', base_obj.model, allow_pickle=True)
-    np.savez('Model_base_links', base_obj.links, allow_pickle=True)
-    np.savez('Model_base_req', base_obj.model_req, allow_pickle=True)
-    np.savez('Model_base_links_req', base_obj.links_req, allow_pickle=True)
+    np.savez(work_dir + 'Model_base', base_obj.model, allow_pickle=True)
+    np.savez(work_dir + 'Model_base_links', base_obj.links, allow_pickle=True)
+    np.savez(work_dir + 'Model_base_req', base_obj.model_req, allow_pickle=True)
+    np.savez(work_dir + 'Model_base_links_req', base_obj.links_req, allow_pickle=True)
     t0 = t1
     t1 = int(time.time() * 1000)
     print("Models saved. Time: " + str(t1-t0) + " ms.")

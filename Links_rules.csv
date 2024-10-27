@@ -1,0 +1,10 @@
+SRC_MODEL,SRC_ID,SRC_NAME,DIST_MODEL,DIST_ID,DIST_NAME,RULE
+Billing,2,Tariff_1,PPV,5,Sport,entitled
+Billing,3,Tariff_2,PPV,6,Children,entitled
+Billing,4,Tariff_3,PPV,7,Famaly,entitled
+Billing,5,Tariff_4,PPV,8,Documentary,entitled
+Billing,7,Tier_1,PPV,5,Sport,entitled
+Billing,8,Tier_2,PPV,6,Children,entitled
+Billing,9,Tier_3,PPV,7,Famaly,entitled
+Billing,10,Tier_4,PPV,8,Documentary,entitled
+

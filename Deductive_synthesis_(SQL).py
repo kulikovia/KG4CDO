@@ -10,8 +10,12 @@ con = psycopg2.connect(
    user="postgres",
    password="admin",
    host="127.0.0.1",
-   port="5433"
+   port="5432"
     )
+
+#Set up working directory
+work_dir = "C:\\1\\"
+
 #Clear DB tables
 cur = con.cursor()
 cur.execute('''TRUNCATE TABLE public."Facts";''')
@@ -145,13 +149,13 @@ def csv_dict_reader_facts(file_obj_rules, model):
         model[i].parent_id = line["PARENT_ID"]
         model[i].level_num = line["LEVEL_NUM"]
         i = i+1
-    sql = '''COPY "Facts" ("MODEL_TYPE", "NODE_TYPE", "FACT_ID", "NAME", "PARENT_ID", "LEVEL_NUM") FROM 'C:\Blazegraph\Projects\Test_facts1.csv' WITH DELIMITER ',' CSV HEADER;'''
+    sql = '''COPY "Facts" ("MODEL_TYPE", "NODE_TYPE", "FACT_ID", "NAME", "PARENT_ID", "LEVEL_NUM") FROM \'''' + work_dir + 'Test_facts.csv' + '''\' WITH DELIMITER ',' CSV HEADER;'''
     cur.execute(sql)
     con.commit()
     return model
 
 def deductive_synthesis(model, facts):
-    sql = '''COPY "Req_model" ("ID", "MODEL_TYPE", "NODE_TYPE", "SRC_ID", "NAME", "PARENT_ID", "LEVEL_NUM") FROM 'C:\Blazegraph\Projects\Req_model_1.csv' WITH DELIMITER ',' CSV HEADER;'''
+    sql = '''COPY "Req_model" ("ID", "MODEL_TYPE", "NODE_TYPE", "SRC_ID", "NAME", "PARENT_ID", "LEVEL_NUM") FROM \'''' + work_dir + 'Req_model_1.csv' + '''\' WITH DELIMITER ',' CSV HEADER;'''
     cur.execute(sql)
     con.commit()
     print(datetime.now(), ' - The rules readed')
@@ -227,13 +231,13 @@ if __name__ == "__main__":
     t0 = int(time.time() * 1000)
     #Import base model from file
     base_obj = base_model()
-    file_obj  = np.load('Model_base_req.npz', allow_pickle=True)
+    file_obj  = np.load(work_dir + 'Model_base_req.npz', allow_pickle=True)
     base_obj.model = file_obj['arr_0']
     print(datetime.now(), " - Reference model has been imported")
     # Read facts
     facts = facts_model()
     #Positive scenario
-    facts.start('Test_facts1.csv', model1=[])
+    facts.start(work_dir + 'Test_facts.csv', model1=[])
     #Wrong nodes scenario
     #facts.start('Deductive_facts_(wrong_nodes)_1.csv', model1=[])
     # Empty nodes scenario
