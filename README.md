@@ -271,6 +271,11 @@ In order to analyze the execution time of SPARQL queries to the CSDO models in t
 
 ## Experiments
 
+### Synthesis of Multilevel knowledge graphs: Methods and technologies for dynamic networks
+
+In this [article](https://www.sciencedirect.com/science/article/pii/S0952197623004281) we present a real two [realistic datasets](https://zenodo.org/records/7605504) (namely, for SPARQL querying performance analysis, and for our case study on dynamic network monitoring). Our experiments show that the developed models of multilevel synthesis reduce the time complexity up to 73% on practice compared to the baselines, and are lossless and able to beat their competitors based on parallel knowledge graph processing from 4% to 91% in terms of computational time (depending on the query type). Further parallelisation of our multilevel models is even more efficient (the reduction of query processing time is about 40%–45%) and opens promising prospects for the creation and exploitation of dynamic Knowledge Graphs in practice.
+
+
 ## References
 
 ## Patch Note / Major Updates
